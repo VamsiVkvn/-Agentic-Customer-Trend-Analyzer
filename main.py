@@ -5,14 +5,14 @@ from tqdm import tqdm
 from agent import ReviewAgent
 
 def run_simulation():
-    # Setup folders
+   
     os.makedirs("data", exist_ok=True)
     os.makedirs("output", exist_ok=True)
     
-    print("\n--- 🟢 STARTING AGENTIC AI DEMO (ONLINE MODE) ---")
+    print("\n---STARTING AGENTIC AI DEMO (ONLINE MODE) ---")
     print("Connecting to Google Gemini to classify recent reviews...\n")
     
-    # 1. Load data
+    
     try:
         df = pd.read_csv(os.path.join("data", "raw_reviews.csv"))
     except:
@@ -21,8 +21,7 @@ def run_simulation():
 
     df['at'] = pd.to_datetime(df['at'])
     
-    # --- DEMO LIMIT: ONLY 20 REVIEWS ---
-    # We slice the data to ensure the Free Tier API doesn't block us during the video
+    
     df_demo = df.tail(20).copy()
     # -----------------------------------
     
@@ -40,8 +39,7 @@ def run_simulation():
             
         daily_topic_counts = {}
         
-        # BATCH PROCESSING (The Real AI Way)
-        # We send the batch to Gemini
+       
         results = agent.analyze_batch(daily_reviews)
         
         if not results:
@@ -52,18 +50,18 @@ def run_simulation():
             topic = item.get('topic', 'Unclassified')
             daily_topic_counts[topic] = daily_topic_counts.get(topic, 0) + 1
             
-            # Print LOGS so the video shows the AI "thinking"
+            
             print(f"  🧠 [AI DECISION] Review: '{item.get('review')[:40]}...'") 
             print(f"     -> Assigned Topic: {topic}")
             
-            # Dynamic Taxonomy Learning (The "Agentic" part)
+           
             if topic not in agent.topics:
                 print(f"  ✨ [NEW TOPIC DISCOVERED] Agent created category: {topic}")
                 agent.topics.append(topic)
         
         trend_data[day_str] = daily_topic_counts
         
-        # Sleep to be safe
+       
         time.sleep(2)
 
     print("\n--- ✅ AGENTIC DEMO COMPLETE ---")
