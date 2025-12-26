@@ -2,7 +2,7 @@
 
 **A Dual-Mode Agentic Workflow for Temporal Topic Modeling on User Reviews.**
 
-This repository contains the solution for the PulseGen "Senior AI Engineer" assignment. It implements an autonomous pipeline to ingest Google Play Store reviews, deduplicate semantic topics, and generate a 6-month trend analysis matrix.
+
 
 ---
 
